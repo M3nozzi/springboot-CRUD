@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.menozzi.wkmongo.domain.Post;
 import com.menozzi.wkmongo.domain.User;
+import com.menozzi.wkmongo.dto.AuthorDTO;
 import com.menozzi.wkmongo.repository.PostRepository;
 import com.menozzi.wkmongo.repository.UserRepository;
 
@@ -39,14 +40,12 @@ public class Instantiation implements CommandLineRunner{
 		User natale = new User(null, "Natale Mignone", "natale@mignone.com" );
 		User dante = new User(null, "Dante Martini", "dante@martini.com" );
 		
-		
-		
-		Post post1 = new Post(null, sdf.parse("09/10/2020"), "Test Title", " test test test test!!", angela);
-		
-		Post post2 = new Post(null, sdf.parse("08/10/2020"), "Test Title 2 ", " test2 test2 test2 test2!!", angela);
-		
-		
 		userRepository.saveAll(Arrays.asList(angela, natale, dante));
+		
+		Post post1 = new Post(null, sdf.parse("09/10/2020"), "Test Title", " test test test test!!", new AuthorDTO(angela));
+		
+		Post post2 = new Post(null, sdf.parse("08/10/2020"), "Test Title 2 ", " test2 test2 test2 test2!!", new AuthorDTO(angela));
+		
 		
 		postRepository.saveAll(Arrays.asList(post1, post2));
 	}
