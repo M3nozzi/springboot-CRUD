@@ -54,7 +54,7 @@ public class Client implements Serializable{
 		this.name = name;
 	}
 
-
+	
 	public String getCpf() {
 		return cpf;
 	}
