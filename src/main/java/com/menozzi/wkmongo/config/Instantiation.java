@@ -8,12 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
-import com.menozzi.wkmongo.domain.Post;
-import com.menozzi.wkmongo.domain.User;
-import com.menozzi.wkmongo.dto.AuthorDTO;
-import com.menozzi.wkmongo.dto.CommentDTO;
-import com.menozzi.wkmongo.repository.PostRepository;
-import com.menozzi.wkmongo.repository.UserRepository;
+import com.menozzi.wkmongo.domain.Client;
+import com.menozzi.wkmongo.domain.Saldo;
+import com.menozzi.wkmongo.dto.OwnerDTO;
+import com.menozzi.wkmongo.repository.ClientRepository;
+import com.menozzi.wkmongo.repository.SaldoRepository;
 
 
 @Configuration
@@ -21,10 +20,10 @@ public class Instantiation implements CommandLineRunner{
 
 	
 	@Autowired
-	private UserRepository userRepository;
+	private ClientRepository clientRepository;
 	
 	@Autowired
-	private PostRepository postRepository;
+	private SaldoRepository saldoRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -33,32 +32,35 @@ public class Instantiation implements CommandLineRunner{
 		
 		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 		
-		userRepository.deleteAll();
+		clientRepository.deleteAll();
 		
-		postRepository.deleteAll();
+		saldoRepository.deleteAll();
 		
-		User angela = new User(null, "Angela Acerbi", "angela@acerbi.com" );
-		User natale = new User(null, "Natale Mignone", "natale@mignone.com" );
-		User dante = new User(null, "Dante Martini", "dante@martini.com" );
+		Client angela = new Client(null, "Angela Acerbi", "90258558067" );
+		Client maria = new Client(null, "Maria Rossi", "57370238008" );
+		Client antonio = new Client(null, "Antonio Martini", "90485609002" );
 		
-		userRepository.saveAll(Arrays.asList(angela, natale, dante));
+		clientRepository.saveAll(Arrays.asList(angela, maria, antonio));
 		
-		Post post1 = new Post(null, sdf.parse("09/10/2020"), "Test Title", " test test test test!!", new AuthorDTO(angela));
+		Saldo saldo1 = new Saldo(null, sdf.parse("09/10/2020"), 4000.00, new OwnerDTO(antonio));
+
+		Saldo saldo2 = new Saldo(null, sdf.parse("10/10/2020"), 6000.00, new OwnerDTO(angela));
 		
-		Post post2 = new Post(null, sdf.parse("08/10/2020"), "Test Title 2 ", " test2 test2 test2 test2!!", new AuthorDTO(angela));
 		
-		CommentDTO c1  = new CommentDTO("Test Comment", sdf.parse("09/10/2020"), new AuthorDTO(natale));
-		CommentDTO c2  = new CommentDTO("Test Comment 2", sdf.parse("07/10/2020"), new AuthorDTO(dante));
-		CommentDTO c3  = new CommentDTO("Test Comment 3", sdf.parse("06/10/2020"), new AuthorDTO(natale));
+//		CommentDTO c1  = new CommentDTO("Test Comment", sdf.parse("09/10/2020"), new AuthorDTO(natale));
+//		CommentDTO c2  = new CommentDTO("Test Comment 2", sdf.parse("07/10/2020"), new AuthorDTO(dante));
+//		CommentDTO c3  = new CommentDTO("Test Comment 3", sdf.parse("06/10/2020"), new AuthorDTO(natale));
+//		
+//		post1.getComments().addAll(Arrays.asList(c1,c2));
+//		
+//		post2.getComments().addAll(Arrays.asList(c3));
+//		
+//		postRepository.saveAll(Arrays.asList(post1, post2));
+//		
+//		angela.getPosts().addAll(Arrays.asList(post1, post2));
+//		clientRepository.save(angela);
 		
-		post1.getComments().addAll(Arrays.asList(c1,c2));
-		
-		post2.getComments().addAll(Arrays.asList(c3));
-		
-		postRepository.saveAll(Arrays.asList(post1, post2));
-		
-		angela.getPosts().addAll(Arrays.asList(post1, post2));
-		userRepository.save(angela);
+		saldoRepository.saveAll(Arrays.asList(saldo1, saldo2));
 		
 	}
 
