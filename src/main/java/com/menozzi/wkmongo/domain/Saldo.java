@@ -1,12 +1,15 @@
 package com.menozzi.wkmongo.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.menozzi.wkmongo.dto.OwnerDTO;
+import com.menozzi.wkmongo.dto.TransferDTO;
 
 
 @Document
@@ -19,6 +22,9 @@ public class Saldo implements Serializable{
 	private Date date;
 	private Double value;
 	private OwnerDTO owner;
+	
+	
+	private List<TransferDTO> transfers = new ArrayList<>();
 	
 	public Saldo(){
 		
@@ -64,6 +70,15 @@ public class Saldo implements Serializable{
 		this.owner = owner;
 	}
 
+	
+	public List<TransferDTO> getTransfers() {
+		return transfers;
+	}
+
+	public void setTransfers(List<TransferDTO> transfers) {
+		this.transfers = transfers;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -88,7 +103,5 @@ public class Saldo implements Serializable{
 			return false;
 		return true;
 	}
-
-	
 
 }

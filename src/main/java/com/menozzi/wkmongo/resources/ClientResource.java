@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.menozzi.wkmongo.domain.Client;
+import com.menozzi.wkmongo.domain.Saldo;
 import com.menozzi.wkmongo.dto.ClientDTO;
 import com.menozzi.wkmongo.services.ClientService;
 
@@ -70,11 +71,11 @@ public class ClientResource {
 		return ResponseEntity.noContent().build();
 	}
 	
-//	@RequestMapping(value="/{id}/AtualizaSaldo", method=RequestMethod.GET)
-// 	public ResponseEntity<List<Saldo>> findSaldo(@PathVariable String id) {
-//		Client obj = service.findById(id);
-//		return ResponseEntity.ok().body(obj.getSaldo());
-//	}
-//	
+	@RequestMapping(value="/{id}/AtualizaSaldo", method=RequestMethod.GET)
+ 	public ResponseEntity<List<Saldo>> findSaldo(@PathVariable String id) {
+		Client obj = service.findById(id);
+		return ResponseEntity.ok().body(obj.getSaldo());
+	}
+	
 
 }
